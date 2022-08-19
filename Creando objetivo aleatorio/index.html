@@ -1,0 +1,56 @@
+<canvas width="600" height="400"> </canvas>
+
+<script>
+var pantalla = document.querySelector("canvas");
+var pincel = pantalla.getContext("2d");
+pincel.fillStyle = "lightgrey";
+pincel.fillRect(0,0,600,400);
+
+
+function dibujarCirculo (x,y,radio, color) {
+    pincel.fillStyle = color;
+    pincel.beginPath();
+    pincel.arc(x,y,radio,0,2*Math.PI);
+    pincel.fill();
+}
+
+function limpiarPantalla (){
+    pincel.clearRect(0,0,600,400);
+}
+var x = 0;
+
+function mostrarObjetivo (x,y){
+    dibujarCirculo(x,y,30, "red");
+    dibujarCirculo(x,y,20, "white");
+    dibujarCirculo(x,y,10, "red");
+}
+
+function numeroMaximo (maximo){
+    return Math.floor(Math.random()*maximo);
+}
+
+
+function actualizarPantalla (){
+limpiarPantalla();
+var xAleatorio = numeroMaximo(600);
+var yAleatorio = numeroMaximo (400);
+mostrarObjetivo(xAleatorio, yAleatorio);
+}
+
+setInterval(actualizarPantalla, 1000);
+
+
+function disparar (evento) {
+    var x = pageX - pantalla.offsetLeft;
+    var y = pageY - pantalla.offsetTop;
+}
+
+
+pantalla.onclick = disparar;
+
+
+
+
+
+
+</script>
